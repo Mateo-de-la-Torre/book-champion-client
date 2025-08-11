@@ -43,13 +43,23 @@ const books = [
   },
 ];
 
+const handleBookAdded = (enteredBook) => {
+  const bookData = {
+    ...enteredBook,
+    id: Math.random()
+  }
+
+  console.log(bookData);
+
+}
+
 
 export function App() {
   return (
     <>
       <h1>Book champions app</h1>
       <p>Quiero leer libros!</p>
-      <NewBook />
+      <NewBook onBookAdded={handleBookAdded} />
       <Books books={books} />
     </>
   )

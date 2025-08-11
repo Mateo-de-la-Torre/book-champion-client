@@ -1,22 +1,88 @@
+import { useState } from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 
-export const NewBook = () => {
+export const NewBook = ({ onBookAdded }) => {
+
+    const [title, setTitle] = useState("");
+    const [author, setAuthor] = useState("");
+    const [rating, setRating] = useState("");
+    const [pageCount, setPageCount] = useState("");
+    const [imageUrl, setImageUrl] = useState("");
+    const [available, setAvailable] = useState(false);
+
+
+    const handleChangeTitle = (event) => {
+        setTitle(event.target.value);
+    }
+
+    const handleAuthorChange = (event) => {
+        setAuthor(event.target.value);
+    }
+
+    const handleRatingChange = (event) => {
+        setRating(event.target.value);
+    }
+
+    const handlePageCountChange = (event) => {
+        setPageCount(event.target.value);
+    }
+
+    const handleImageUrlChange = (event) => {
+        setImageUrl(event.target.value);
+    }
+
+    const handleAvailableChange = (event) => {
+        setAvailable(event.target.value);
+    }
+
+
+    const handleAddBook = (event) => {
+        event.preventDefault();
+
+        const bookData = {
+            title,
+            author,
+            rating: parseInt(rating, 10),
+            pageCount: parseInt(pageCount, 10),
+            imageUrl,
+            available
+        };
+
+        onBookAdded(bookData)
+        setTitle("");
+        setAuthor("");
+        setRating(0);
+        setPageCount(0);
+        setImageUrl("");
+        setAvailable(false);
+
+
+    }
+
 
     return (
         <Card className="m-4 w-50" bg="success">
             <Card.Body>
-                <Form className="text-white">
+                <Form className="text-white" onSubmit={handleAddBook}>
                     <Row>
                         <Col md={6}>
                             <Form.Group className="mb-3" controlId="title">
                                 <Form.Label>Título</Form.Label>
-                                <Form.Control type="text" placeholder="Ingresar título" />
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Ingresar título"
+                                    onChange={handleChangeTitle}
+                                />
                             </Form.Group>
                         </Col>
                         <Col md={6}>
                             <Form.Group className="mb-3" controlId="author">
                                 <Form.Label>Autor</Form.Label>
-                                <Form.Control type="text" placeholder="Ingresar autor" />
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Ingresar autor"
+                                    onChange={handleAuthorChange}
+                                />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -29,6 +95,7 @@ export const NewBook = () => {
                                     placeholder="Ingresar cantidad de estrellas"
                                     max={5}
                                     min={0}
+                                    onChange={handleRatingChange}
                                 />
                             </Form.Group>
                         </Col>
@@ -39,6 +106,7 @@ export const NewBook = () => {
                                     type="number"
                                     placeholder="Ingresar cantidad de páginas"
                                     min={1}
+                                    onChange={handlePageCountChange}
                                 />
                             </Form.Group>
                         </Col>
@@ -46,7 +114,11 @@ export const NewBook = () => {
                     <Row className="justify-content-between">
                         <Form.Group className="mb-3" controlId="imageUrl">
                             <Form.Label>URL de imagen</Form.Label>
-                            <Form.Control type="text" placeholder="Ingresar url de imagen" />
+                            <Form.Control
+                                type="text"
+                                placeholder="Ingresar url de imagen"
+                                onChange={handleImageUrlChange}
+                            />
                         </Form.Group>
                     </Row>
                     <Row className="justify-content-end">
@@ -56,6 +128,7 @@ export const NewBook = () => {
                                 id="available"
                                 className="mb-3"
                                 label="¿Disponible?"
+                                onChange={handleAvailableChange}
                             />
                             <Button variant="primary" type="submit">
                                 Agregar lectura
