@@ -1,7 +1,13 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
-export const BookItem = ({ title, author, rating, pageCount, imageUrl }) => {
+export const BookItem = ({ title, author, rating, pageCount, imageUrl, onSelect }) => {
+
+  const handleSelectBook = () => {
+    onSelect(title);
+  };
+
 
   return (
     <Card style={{ width: '18rem' }}>
@@ -15,6 +21,7 @@ export const BookItem = ({ title, author, rating, pageCount, imageUrl }) => {
         <Card.Text>
           {pageCount} Páginas
         </Card.Text>
+        <Button onClick={handleSelectBook}>Selecionar libro</Button>
       </Card.Body>
     </Card>
   )

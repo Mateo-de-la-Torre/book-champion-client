@@ -1,5 +1,5 @@
 import './App.css'
-import { Books, BookItem } from './components';
+import { Books, BookItem, NewBook } from './components';
 const books = [
   {
     id: 1,
@@ -49,6 +49,7 @@ export function App() {
     <>
       <h1>Book champions app</h1>
       <p>Quiero leer libros!</p>
+      <NewBook />
       <Books books={books} />
     </>
   )
