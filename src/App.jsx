@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import './App.css'
-import { Books, BookItem, NewBook } from './components';
+import { Books, BookItem, NewBook, Login } from './components';
 const books = [
   {
     id: 1,
@@ -43,24 +44,31 @@ const books = [
   },
 ];
 
-const handleBookAdded = (enteredBook) => {
-  const bookData = {
-    ...enteredBook,
-    id: Math.random()
+export function App() {
+  const [bookList, setBookList] = useState(books);
+
+  const handleBookAdded = (enteredBook) => {
+    const bookData = {
+      id: Math.random(),
+      bookTitle: enteredBook.title,
+      bookAuthor: enteredBook.author,
+      bookRating: Array(enteredBook.rating).fill("*"),
+      pageCount: enteredBook.pageCount,
+      summary: enteredBook.summary,
+      imageUrl: enteredBook.imageUrl,
+    }
+
+    console.log(bookData);
+    setBookList(prevBooks => [...prevBooks, bookData]);
   }
 
-  console.log(bookData);
-
-}
-
-
-export function App() {
   return (
     <>
       <h1>Book champions app</h1>
       <p>Quiero leer libros!</p>
       <NewBook onBookAdded={handleBookAdded} />
-      <Books books={books} />
+      <Books books={bookList} setBookList={setBookList} />
+      {/* <Login /> */}
     </>
   )
 }

@@ -2,11 +2,15 @@ import React from 'react'
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-export const BookItem = ({ title, author, rating, pageCount, imageUrl, onSelect }) => {
+export const BookItem = ({ id, title, author, rating, pageCount, imageUrl, onSelect, onDelete }) => {
 
   const handleSelectBook = () => {
     onSelect(title);
   };
+
+  const handleDeleteBook = () => {
+    onDelete(id);
+  }
 
 
   return (
@@ -22,6 +26,8 @@ export const BookItem = ({ title, author, rating, pageCount, imageUrl, onSelect 
           {pageCount} Páginas
         </Card.Text>
         <Button onClick={handleSelectBook}>Selecionar libro</Button>
+        <Button variant="danger" onClick={handleDeleteBook}>Eliminar libro</Button>
+
       </Card.Body>
     </Card>
   )
